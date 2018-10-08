@@ -53,15 +53,37 @@
                         <property name="tablePrefix" value="tbl_"/>
                     </bean>
                 </property>
+                <!--逻辑删除-->
+                <property name="sqlInjector" ref="logicalDelInjector"/>
+                <!--公共字段填充处理器-->
+                <property name="metaObjectHandler" ref="myMetaObjectHandler"/>
             </bean>
         </property>
         <property name="plugins">
             <list>
+                <!--拦截非法SQL语句插件-->
+                <!--<bean class="com.baomidou.mybatisplus.extension.plugins.IllegalSQLInterceptor"/>-->
                 <!--注册分页插件-->
-                <bean class="com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor"></bean>
+                <bean class="com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor"/>
+                <!--SQL执行分析插件-->
+                <!--<bean class="com.baomidou.mybatisplus.extension.plugins.SqlExplainInterceptor"/>-->
+                <!--SQL性能分析-->
+                <bean class="com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor">
+                    <property name="maxTime" value="100"/>
+                    <!--SQL是否格式化 默认false-->
+                    <property name="format" value="true"/>
+                </bean>
+                <!--乐观锁插件-->
+                <bean class="com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor"/>
+
+
             </list>
         </property>
     </bean>
+    <!--逻辑删除-->
+    <bean id="logicalDelInjector" class="com.baomidou.mybatisplus.extension.injector.LogicSqlInjector"/>
+
+    <bean id="myMetaObjectHandler" class="com.bzcoder.test.MyMetaObjectHandler"/>
     <!--
         配置mybatis 扫描mapper接口的路径
      -->

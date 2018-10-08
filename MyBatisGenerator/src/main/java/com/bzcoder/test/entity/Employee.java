@@ -1,9 +1,8 @@
 package com.bzcoder.test.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
 
 /**
@@ -30,7 +29,11 @@ public class Employee extends Model<Employee> {
 
     private Integer age;
 
+    @Version
+    private Integer version;
 
+    @TableLogic
+    private Integer deleted;
     public Integer getId() {
         return id;
     }
@@ -69,6 +72,21 @@ public class Employee extends Model<Employee> {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 
     @Override
